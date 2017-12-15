@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>COOKIES</title>
+</head>
+<style>
+	#score
+	{
+		width: 250px;
+	}
+	h2
+	{
+		display: inline-block;
+	}	
+	#mot, #lettresInva, #essais
+	{		
+		text-align: right;
+	}
+</style>
+<body>
+	<div id="score">
+		<H2>Le Mot:</H2>
+		<div id="mot">
+		</div>
+		<H2>Lettres Invalides:</H2>
+		<div id="lettresInva">
+		</div>
+		<H2>Essais:</H2>
+		<div id="essais">9
+		</div>
+	</div>
+<script>
+var motSecret = 'BONJOUR';
+var motProposition = new Array(motSecret.length);
+var lettreProposition;
+var lettresInvalides = [];
+var chanceNombre = 9;
+var resultat = 0;
+var i = 0;
+while (motProposition.length > i)
+{
+  motProposition[i] = "-";
+  i++;
+}
+
+while (chanceNombre > 0) {
+  lettreProposition = prompt('Proposez une lettre');
+  verifType(lettreProposition);
+}
+
+function verifType(lettre) {
+  if (isNaN(lettre) === true)
+  {
+  	if (lettre != "")
+  	{
+  		if (lettre.length == 1)
+  		{
+  			verifLettre();
+  		}
+  	}
+  }
+}
+
+function verifLettre() {
+  lettreProposition = lettreProposition.toUpperCase();
+  for (i = 0; i < motSecret.length; i++) {
+    if (lettreProposition == motProposition[i]) {
+      alert('cette lettre a déjà été proposée');
+      return;
+    }
+  }
+  comparLettreInvalides(lettreProposition);
+}
+
+function comparLettreInvalides(lettre)
+{
+  for (i = 0; i < lettresInvalides.length; i++) {
+    if (lettre == lettresInvalides[i]) {
+      alert('cette lettre a déjà été proposée');
+      return;
+    }
+  }
+  lettreExiste(lettre);
+}
+
+function lettreExiste(lettre) {
+  for (i = 0; i < motSecret.length; i++) {
+    if (lettre == motSecret[i]) {
+      motProposition[i] = lettre;
+      resultat = 1;
+    }
+  }
+  afficheResultat(lettre);
+}
+
+function afficheResultat(lettre) {
+  if (resultat == 1)
+  {
+  	document.getElementById('mot').innerHTML = motProposition.join();
+    alert('Bonne Proposition');
+  }
+  else
+  {
+    chanceNombre--;
+    lettresInvalides.push(lettre);
+    document.getElementById('lettresInva').innerHTML += lettre+"-";
+    alert('Mauvaise proposition');
+  }
+  document.getElementById('essais').innerHTML = chanceNombre;
+  resultat = 0;
+}
+</script>
+</body>
+</html>
