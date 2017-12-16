@@ -20,7 +20,7 @@
 	}
 </style>
 
-<body>
+<body onKeyPress="if (event.keyCode == 13) proposition()">
 	<div id="score">
 		<H2>Le Mot:</H2>
 		<div id="mot">
@@ -41,19 +41,24 @@
 	</div>
 
 <script>
-var motSecret = 'BONJOUR';
-var motProposition = new Array(motSecret.length);
+var dictionnaire = ['BONJOUR', 'PARTOUT', 'COMMENT', 'MANGER', 'PARTIR', 'FATIGUE', 'INFORMATIQUE', 'TESTER'];
+var motSecret;
 var lettreProposition;
 var lettresInvalides = [];
 var chanceNombre = 9;
 var resultat = 0;
 var victoire = 0;
-
+/* Choisir un mot au hasard */
+var randomNum = Math.floor(Math.random()*dictionnaire.length);
+var motSecret = dictionnaire[randomNum];
+/* Initialisation du mot, remplacement des lettres par des "-" */
+var motProposition = new Array(motSecret.length);
 for (i = 0; motProposition.length > i; i++)
 {
   motProposition[i] = "-";
 }
-
+document.getElementById('mot').innerHTML = motProposition.join(' ');
+/* Stockage de la lettre proposée par le joueur */
 function proposition()
 {
 	if (chanceNombre > 0) 
@@ -62,34 +67,36 @@ function proposition()
   		verifType(lettreProposition);
 	}
 }
-
+/* Lettre proposée est-elle correct ? => UNE SEULE LETTRE et rien d'autre */
 function verifType(lettre) {
-  if (isNaN(lettre) === true)
-  {
-  	if (lettre != "")
+	if (lettre != "") /* proposition existe-elle ? */
   	{
-  		if (lettre.length == 1)
+  		if (isNaN(lettre) === true) /* est-elle une lettre ? */
   		{
-  			verifLettre();
+  			if (lettre.length == 1) /* n'y a-t-il qu'une seule lettre ? */
+  			{
+  				verifLettre();
+  			}
   		}
   	}
-  }
 }
-
+/* On verifie que la lettre proposée soit différente des lettres composant le mot secret et étant déjà proposées */
 function verifLettre()
 {
-  	lettreProposition = lettreProposition.toUpperCase();
+  	lettreProposition = lettreProposition.toUpperCase(); /* Transformer lettre minuscule en majuscule */
   	for (i = 0; i < motSecret.length; i++) {
     if (lettreProposition == motProposition[i])
     {
     	document.getElementById("comIA").style.color = "#FF8C00";
+    	document.getElementById("propo").value = "";
+  		document.getElementById("propo").focus();
       	document.getElementById("comIA").innerHTML = "cette lettre a déjà été proposée";
       	return;
     }
 }
   comparLettreInvalides(lettreProposition);
 }
-
+/* On verifie que la lettre proposée soit différente des lettres ivalides étant déjà proposées */
 function comparLettreInvalides(lettre)
 {
   	for (i = 0; i < lettresInvalides.length; i++)
@@ -97,13 +104,15 @@ function comparLettreInvalides(lettre)
     	if (lettre == lettresInvalides[i])
     	{
     		document.getElementById("comIA").style.color = "#FF8C00";
+    		document.getElementById("propo").value = "";
+  			document.getElementById("propo").focus();
       		document.getElementById("comIA").innerHTML = "cette lettre a déjà été proposée";
      		return;
     	}
   	}
  	lettreExiste(lettre);
 }
-
+/* La lettre proposée compose-t-elle le mot secret */
 function lettreExiste(lettre) {
   for (i = 0; i < motSecret.length; i++) {
     if (lettre == motSecret[i]) {
@@ -114,7 +123,7 @@ function lettreExiste(lettre) {
   }
   afficheResultat(lettre);
 }
-
+/* Affichage du résultat de la lettre */
 function afficheResultat(lettre) {
   if (resultat == 1)
   {
@@ -131,22 +140,24 @@ function afficheResultat(lettre) {
     document.getElementById("comIA").innerHTML = "Mauvaise proposition";
   }
   document.getElementById('essais').innerHTML = chanceNombre;
+  document.getElementById("propo").value = "";
+  document.getElementById("propo").focus();
   resultat = 0;
   victoireDefaite();
 }
-
+/* FINAL => VICTOIRE / DEFAITE */
 function victoireDefaite()
 {
+	if (chanceNombre == 0)
+	{
+		document.getElementById("comIA").style.color = "red";
+		document.getElementById("comIA").innerHTML = "DEFAITE";
+	}
 	if (victoire == motSecret.length)
 	{
 		document.getElementById("comIA").style.color = "green";
 		document.getElementById("comIA").innerHTML = "VICTOIRE";
 		chanceNombre = 0;
-	}
-	if (chanceNombre == 0)
-	{
-		document.getElementById("comIA").style.color = "red";
-		document.getElementById("comIA").innerHTML = "DEFAITE";
 	}
 }
 </script>
