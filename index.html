@@ -76,26 +76,32 @@ function verifType(lettre) {
   }
 }
 
-function verifLettre() {
-  lettreProposition = lettreProposition.toUpperCase();
-  for (i = 0; i < motSecret.length; i++) {
-    if (lettreProposition == motProposition[i]) {
-      document.getElementById("comIA").innerHTML = "cette lettre a déjà été proposée";
-      return;
+function verifLettre()
+{
+  	lettreProposition = lettreProposition.toUpperCase();
+  	for (i = 0; i < motSecret.length; i++) {
+    if (lettreProposition == motProposition[i])
+    {
+    	document.getElementById("comIA").style.color = "#FF8C00";
+      	document.getElementById("comIA").innerHTML = "cette lettre a déjà été proposée";
+      	return;
     }
-  }
+}
   comparLettreInvalides(lettreProposition);
 }
 
 function comparLettreInvalides(lettre)
 {
-  for (i = 0; i < lettresInvalides.length; i++) {
-    if (lettre == lettresInvalides[i]) {
-      document.getElementById("comIA").innerHTML = "cette lettre a déjà été proposée";
-      return;
-    }
-  }
-  lettreExiste(lettre);
+  	for (i = 0; i < lettresInvalides.length; i++)
+	{
+    	if (lettre == lettresInvalides[i])
+    	{
+    		document.getElementById("comIA").style.color = "#FF8C00";
+      		document.getElementById("comIA").innerHTML = "cette lettre a déjà été proposée";
+     		return;
+    	}
+  	}
+ 	lettreExiste(lettre);
 }
 
 function lettreExiste(lettre) {
@@ -112,7 +118,8 @@ function lettreExiste(lettre) {
 function afficheResultat(lettre) {
   if (resultat == 1)
   {
-  	document.getElementById('mot').innerHTML = motProposition.join();
+  	document.getElementById('mot').innerHTML = motProposition.join(' ');
+  	document.getElementById("comIA").style.color = "green";
     document.getElementById("comIA").innerHTML = "Bonne Proposition";
   }
   else
@@ -120,6 +127,7 @@ function afficheResultat(lettre) {
     chanceNombre--;
     lettresInvalides.push(lettre);
     document.getElementById('lettresInva').innerHTML += lettre+"-";
+    document.getElementById("comIA").style.color = "red";
     document.getElementById("comIA").innerHTML = "Mauvaise proposition";
   }
   document.getElementById('essais').innerHTML = chanceNombre;
@@ -131,11 +139,13 @@ function victoireDefaite()
 {
 	if (victoire == motSecret.length)
 	{
+		document.getElementById("comIA").style.color = "green";
 		document.getElementById("comIA").innerHTML = "VICTOIRE";
 		chanceNombre = 0;
 	}
 	if (chanceNombre == 0)
 	{
+		document.getElementById("comIA").style.color = "red";
 		document.getElementById("comIA").innerHTML = "DEFAITE";
 	}
 }
