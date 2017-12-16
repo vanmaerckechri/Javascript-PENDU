@@ -2,8 +2,9 @@
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<title>COOKIES</title>
+	<title>Le Pendu</title>
 </head>
+
 <style>
 	#score
 	{
@@ -18,6 +19,7 @@
 		text-align: right;
 	}
 </style>
+
 <body>
 	<div id="score">
 		<H2>Le Mot:</H2>
@@ -30,15 +32,14 @@
 		<div id="essais">9
 		</div>
 		<div>
-			<form>
-  				Proposez une lettre: <input id="propo" type="text"><br>
-  				<input type="button" onclick="proposition()" value="Submit">
-			</form>
+  			Proposez une lettre: <input id="propo" type="text"><br>
+  			<input type="button" onclick="proposition()" value="Submit">
 		</div>
 		<H2>Informations</H2>
 		<div id="comIA">
 		</div>
 	</div>
+
 <script>
 var motSecret = 'BONJOUR';
 var motProposition = new Array(motSecret.length);
@@ -46,11 +47,11 @@ var lettreProposition;
 var lettresInvalides = [];
 var chanceNombre = 9;
 var resultat = 0;
+var victoire = 0;
 
 for (i = 0; motProposition.length > i; i++)
 {
   motProposition[i] = "-";
-  i++;
 }
 
 function proposition()
@@ -90,7 +91,7 @@ function comparLettreInvalides(lettre)
 {
   for (i = 0; i < lettresInvalides.length; i++) {
     if (lettre == lettresInvalides[i]) {
-      alert('cette lettre a déjà été proposée');
+      document.getElementById("comIA").innerHTML = "cette lettre a déjà été proposée";
       return;
     }
   }
@@ -102,6 +103,7 @@ function lettreExiste(lettre) {
     if (lettre == motSecret[i]) {
       motProposition[i] = lettre;
       resultat = 1;
+      victoire++;
     }
   }
   afficheResultat(lettre);
@@ -111,17 +113,31 @@ function afficheResultat(lettre) {
   if (resultat == 1)
   {
   	document.getElementById('mot').innerHTML = motProposition.join();
-    alert('Bonne Proposition');
+    document.getElementById("comIA").innerHTML = "Bonne Proposition";
   }
   else
   {
     chanceNombre--;
     lettresInvalides.push(lettre);
     document.getElementById('lettresInva').innerHTML += lettre+"-";
-    alert('Mauvaise proposition');
+    document.getElementById("comIA").innerHTML = "Mauvaise proposition";
   }
   document.getElementById('essais').innerHTML = chanceNombre;
   resultat = 0;
+  victoireDefaite();
+}
+
+function victoireDefaite()
+{
+	if (victoire == motSecret.length)
+	{
+		document.getElementById("comIA").innerHTML = "VICTOIRE";
+		chanceNombre = 0;
+	}
+	if (chanceNombre == 0)
+	{
+		document.getElementById("comIA").innerHTML = "DEFAITE";
+	}
 }
 </script>
 </body>
