@@ -39,6 +39,13 @@
 	{
 		width: 100%;
 	}
+	button
+	{
+		display: none;
+		margin: 0 auto;
+		height: 50px;
+		width: 100%;
+	}
 	#input
 	{
 		display: flex;
@@ -82,6 +89,9 @@
 			<H2>Informations:</H2>
 			<p id="comIA"></p>
 		</section>
+		<section>
+			<button id="recommencer" onclick="location.reload()" type="button">Nouvelle Partie</button>
+		</section>
 	</div>
 
 <script>
@@ -104,6 +114,8 @@ for (i = 0; motProposition.length > i; i++)
 {
 	motProposition[i] = "-";
 }
+document.getElementById("propo").value = "";
+document.getElementById("propo").focus();
 document.getElementById('mot').innerHTML = motProposition.join(' '); /* Affichage du nombre de lettres par les "-" */
 /* Afficher quelques lettres avant le commencement de la partie */
 aideNbrLettre = Math.round((motSecret.length / 3));
@@ -144,7 +156,7 @@ function verifType(lettre)
 		}
 	}
 	document.getElementById("comIA").style.color = "#FF8C00";
-	document.getElementById("comIA").innerHTML = "Veuillez entrer un caractère valide";
+	document.getElementById("comIA").innerHTML = "Veuillez entrer une lettre sans accent";
 }
 /* On verifie que la lettre proposée soit différente des lettres composant le mot secret et étant déjà proposées */
 function verifLettre()
@@ -214,11 +226,13 @@ function victoireDefaite()
 	{
 		document.getElementById("comIA").style.color = "red";
 		document.getElementById("comIA").innerHTML = "DEFAITE";
+		document.getElementById("recommencer").style.display = "block";
 	}
 	if (victoire == motSecret.length)
 	{
 		document.getElementById("comIA").style.color = "green";
 		document.getElementById("comIA").innerHTML = "VICTOIRE";
+		document.getElementById("recommencer").style.display = "block";
 		chanceNombre = 0;
 	}
 }
