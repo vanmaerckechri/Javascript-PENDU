@@ -41,6 +41,7 @@
 	</div>
 
 <script>
+/* ----------------------------------------INIT---------------------------------------- */
 var dictionnaire = ['BONJOUR', 'PARTOUT', 'COMMENT', 'MANGER', 'PARTIR', 'FATIGUE', 'INFORMATIQUE', 'TESTER'];
 var motSecret;
 var lettreProposition;
@@ -55,9 +56,11 @@ var motSecret = dictionnaire[randomNum];
 var motProposition = new Array(motSecret.length);
 for (i = 0; motProposition.length > i; i++)
 {
-  motProposition[i] = "-";
+	motProposition[i] = "-";
 }
-document.getElementById('mot').innerHTML = motProposition.join(' ');
+document.getElementById('mot').innerHTML = motProposition.join(' '); /* Affichage du nombre de lettres par les "-" */
+
+/* ------------------------------"BOUCLE" PRINCIPALE------------------------------ */
 /* Stockage de la lettre proposée par le joueur */
 function proposition()
 {
@@ -135,7 +138,7 @@ function afficheResultat(lettre) {
   {
     chanceNombre--;
     lettresInvalides.push(lettre);
-    document.getElementById('lettresInva').innerHTML += lettre+"-";
+    document.getElementById('lettresInva').innerHTML += lettre+" -";
     document.getElementById("comIA").style.color = "red";
     document.getElementById("comIA").innerHTML = "Mauvaise proposition";
   }
