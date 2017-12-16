@@ -29,8 +29,11 @@
 	{
 		border-bottom: 1px solid white;	
 	}
-	input
+	input[type=text]
 	{
+		width: 2em;
+		height: 2em;
+		font-weight: bold;
 	}
 	h2
 	{
@@ -84,6 +87,7 @@
 <script>
 /* ----------------------------------------INIT---------------------------------------- */
 var dictionnaire = ['BONJOUR', 'PARTOUT', 'COMMENT', 'MANGER', 'PARTIR', 'FATIGUE', 'INFORMATIQUE', 'TESTER', 'CHAPEAU', 'RENFORCER', 'CORDE', 'CHAUSSURES'];
+var lettreAlpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var motSecret;
 var lettreProposition;
 var lettresInvalides = [];
@@ -127,17 +131,20 @@ function proposition()
 	}
 }
 /* Lettre proposée est-elle correct ? => UNE SEULE LETTRE et rien d'autre */
-function verifType(lettre) {
-	if (lettre != "") /* proposition existe-elle ? */
-  	{
-  		if (isNaN(lettre) === true) /* est-elle une lettre ? */
-  		{
-  			if (lettre.length == 1) /* n'y a-t-il qu'une seule lettre ? */
-  			{
-  				verifLettre();
-  			}
-  		}
-  	}
+function verifType(lettre)
+{
+	for (i = 0; lettreAlpha.length > i; i++)
+	{
+		if (lettre === lettreAlpha[i])
+		{
+			verifLettre();
+			return;
+		}
+	}
+	document.getElementById("comIA").style.color = "#FF8C00";
+	document.getElementById("propo").value = "";
+	document.getElementById("propo").focus();
+	document.getElementById("comIA").innerHTML = "Veuillez entrer un caractère valide";
 }
 /* On verifie que la lettre proposée soit différente des lettres composant le mot secret et étant déjà proposées */
 function verifLettre()
