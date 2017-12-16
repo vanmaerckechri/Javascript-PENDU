@@ -42,13 +42,14 @@
 
 <script>
 /* ----------------------------------------INIT---------------------------------------- */
-var dictionnaire = ['BONJOUR', 'PARTOUT', 'COMMENT', 'MANGER', 'PARTIR', 'FATIGUE', 'INFORMATIQUE', 'TESTER'];
+var dictionnaire = ['BONJOUR', 'PARTOUT', 'COMMENT', 'MANGER', 'PARTIR', 'FATIGUE', 'INFORMATIQUE', 'TESTER', 'CHAPEAU', 'RENFORCER', 'CORDE', 'CHAUSSURES'];
 var motSecret;
 var lettreProposition;
 var lettresInvalides = [];
 var chanceNombre = 9;
 var resultat = 0;
 var victoire = 0;
+var aideNbrLettre;
 /* Choisir un mot au hasard */
 var randomNum = Math.floor(Math.random()*dictionnaire.length);
 var motSecret = dictionnaire[randomNum];
@@ -59,6 +60,19 @@ for (i = 0; motProposition.length > i; i++)
 	motProposition[i] = "-";
 }
 document.getElementById('mot').innerHTML = motProposition.join(' '); /* Affichage du nombre de lettres par les "-" */
+/* Afficher quelques lettres avant le commencement de la partie */
+aideNbrLettre = Math.round((motSecret.length / 3));
+while (aideNbrLettre > 0)
+{
+	var randomNum = Math.floor(Math.random()*motSecret.length);
+	while (motProposition[randomNum] != "-")
+	{
+		var randomNum = Math.floor(Math.random()*motSecret.length);;
+	}
+	var lettreProposition = motSecret[randomNum];
+	verifLettre();
+	aideNbrLettre--;
+}
 
 /* ------------------------------"BOUCLE" PRINCIPALE------------------------------ */
 /* Stockage de la lettre proposée par le joueur */
@@ -122,6 +136,7 @@ function lettreExiste(lettre) {
       motProposition[i] = lettre;
       resultat = 1;
       victoire++;
+      aideNbrLettre--;
     }
   }
   afficheResultat(lettre);
