@@ -6,38 +6,79 @@
 </head>
 
 <style>
-	#score
+	html
 	{
-		width: 250px;
+		min-height: 100%;
+	}
+	body
+	{
+		margin: 0;
+		min-height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: black;
+		color: white;
+	}
+	#main
+	{
+		min-width: 400px;
+		min-height: 600px;
+	}
+	section
+	{
+		border-bottom: 1px solid white;	
+	}
+	input
+	{
 	}
 	h2
 	{
-		display: inline-block;
-	}	
-	#mot, #lettresInva, #essais
-	{		
-		text-align: right;
+		width: 100%;
 	}
+	#input
+	{
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+	#mot
+	{
+		color: green;
+	}
+	#lettresInva
+	{
+		color: red;
+	}
+	#essais
+	{
+		color: pink;
+	}
+
 </style>
 
 <body onKeyPress="if (event.keyCode == 13) proposition()">
-	<div id="score">
-		<H2>Le Mot:</H2>
-		<div id="mot">
-		</div>
-		<H2>Lettres Invalides:</H2>
-		<div id="lettresInva">
-		</div>
-		<H2>Essais:</H2>
-		<div id="essais">9
-		</div>
-		<div>
-  			Proposez une lettre: <input id="propo" type="text"><br>
+	<div id="main">
+		<section>
+			<H2>Le Mot:</H2>
+			<p id="mot"></p>
+		</section>
+		<section>
+			<H2>Lettres Invalides:</H2>
+			<p id="lettresInva"></p>
+		</section>
+		<section>
+			<H2>Vies: <span id="essais"></span></H2>
+		</section>
+		<section id="input">
+  			<h2>Proposez une lettre: </h2>
+  			<input id="propo" type="text">
   			<input type="button" onclick="proposition()" value="Submit">
-		</div>
-		<H2>Informations</H2>
-		<div id="comIA">
-		</div>
+		</section>
+		<section>
+			<H2>Informations:</H2>
+			<p id="comIA"></p>
+		</section>
 	</div>
 
 <script>
@@ -79,7 +120,7 @@ while (aideNbrLettre > 0)
 /* Stockage de la lettre proposée par le joueur */
 function proposition()
 {
-	if (chanceNombre > 0) 
+	if (chanceNombre > 0 && aideNbrLettre <= 0) 
  	{
  		lettreProposition = document.getElementById("propo").value;
   		verifType(lettreProposition);
@@ -102,17 +143,18 @@ function verifType(lettre) {
 function verifLettre()
 {
   	lettreProposition = lettreProposition.toUpperCase(); /* Transformer lettre minuscule en majuscule */
-  	for (i = 0; i < motSecret.length; i++) {
-    if (lettreProposition == motProposition[i])
-    {
-    	document.getElementById("comIA").style.color = "#FF8C00";
-    	document.getElementById("propo").value = "";
-  		document.getElementById("propo").focus();
-      	document.getElementById("comIA").innerHTML = "cette lettre a déjà été proposée";
-      	return;
-    }
-}
-  comparLettreInvalides(lettreProposition);
+  	for (i = 0; i < motSecret.length; i++)
+  	{
+	    if (lettreProposition == motProposition[i])
+	    {
+	    	document.getElementById("comIA").style.color = "#FF8C00";
+	    	document.getElementById("propo").value = "";
+	  		document.getElementById("propo").focus();
+	      	document.getElementById("comIA").innerHTML = "cette lettre a déjà été proposée";
+	      	return;
+	    }
+	}
+  	comparLettreInvalides(lettreProposition);
 }
 /* On verifie que la lettre proposée soit différente des lettres ivalides étant déjà proposées */
 function comparLettreInvalides(lettre)
