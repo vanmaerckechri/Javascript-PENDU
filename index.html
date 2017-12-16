@@ -127,6 +127,8 @@ function proposition()
 	if (chanceNombre > 0 && aideNbrLettre <= 0) 
  	{
  		lettreProposition = document.getElementById("propo").value;
+ 		document.getElementById("propo").value = "";
+		document.getElementById("propo").focus();
   		verifType(lettreProposition);
 	}
 }
@@ -142,8 +144,6 @@ function verifType(lettre)
 		}
 	}
 	document.getElementById("comIA").style.color = "#FF8C00";
-	document.getElementById("propo").value = "";
-	document.getElementById("propo").focus();
 	document.getElementById("comIA").innerHTML = "Veuillez entrer un caractère valide";
 }
 /* On verifie que la lettre proposée soit différente des lettres composant le mot secret et étant déjà proposées */
@@ -155,8 +155,6 @@ function verifLettre()
 	    if (lettreProposition == motProposition[i])
 	    {
 	    	document.getElementById("comIA").style.color = "#FF8C00";
-	    	document.getElementById("propo").value = "";
-	  		document.getElementById("propo").focus();
 	      	document.getElementById("comIA").innerHTML = "cette lettre a déjà été proposée";
 	      	return;
 	    }
@@ -171,8 +169,6 @@ function comparLettreInvalides(lettre)
     	if (lettre == lettresInvalides[i])
     	{
     		document.getElementById("comIA").style.color = "#FF8C00";
-    		document.getElementById("propo").value = "";
-  			document.getElementById("propo").focus();
       		document.getElementById("comIA").innerHTML = "cette lettre a déjà été proposée";
      		return;
     	}
@@ -208,8 +204,6 @@ function afficheResultat(lettre) {
     document.getElementById("comIA").innerHTML = "Mauvaise proposition";
   }
   document.getElementById('essais').innerHTML = chanceNombre;
-  document.getElementById("propo").value = "";
-  document.getElementById("propo").focus();
   resultat = 0;
   victoireDefaite();
 }
