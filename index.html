@@ -29,6 +29,15 @@
 		<H2>Essais:</H2>
 		<div id="essais">9
 		</div>
+		<div>
+			<form>
+  				Proposez une lettre: <input id="propo" type="text"><br>
+  				<input type="button" onclick="proposition()" value="Submit">
+			</form>
+		</div>
+		<H2>Informations</H2>
+		<div id="comIA">
+		</div>
 	</div>
 <script>
 var motSecret = 'BONJOUR';
@@ -37,16 +46,20 @@ var lettreProposition;
 var lettresInvalides = [];
 var chanceNombre = 9;
 var resultat = 0;
-var i = 0;
-while (motProposition.length > i)
+
+for (i = 0; motProposition.length > i; i++)
 {
   motProposition[i] = "-";
   i++;
 }
 
-while (chanceNombre > 0) {
-  lettreProposition = prompt('Proposez une lettre');
-  verifType(lettreProposition);
+function proposition()
+{
+	if (chanceNombre > 0) 
+ 	{
+ 		lettreProposition = document.getElementById("propo").value;
+  		verifType(lettreProposition);
+	}
 }
 
 function verifType(lettre) {
@@ -66,7 +79,7 @@ function verifLettre() {
   lettreProposition = lettreProposition.toUpperCase();
   for (i = 0; i < motSecret.length; i++) {
     if (lettreProposition == motProposition[i]) {
-      alert('cette lettre a déjà été proposée');
+      document.getElementById("comIA").innerHTML = "cette lettre a déjà été proposée";
       return;
     }
   }
