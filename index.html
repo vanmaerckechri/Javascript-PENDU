@@ -23,7 +23,7 @@
 	#main
 	{
 		min-width: 400px;
-		min-height: 600px;
+		display: flex;
 	}
 	section
 	{
@@ -45,6 +45,19 @@
 		margin: 0 auto;
 		height: 50px;
 		width: 100%;
+	}
+	#animation
+	{
+		position: relative;
+		align-self: center;
+		margin-right: 1em;
+		width: 128px;
+		height: 176px;
+		background-color: red;
+	}
+	#animation > img
+	{
+		position: absolute;
 	}
 	#input
 	{
@@ -69,29 +82,34 @@
 
 <body onKeyPress="if (event.keyCode == 13) proposition()">
 	<div id="main">
-		<section>
-			<H2>Le Mot:</H2>
-			<p id="mot"></p>
-		</section>
-		<section>
-			<H2>Lettres Invalides:</H2>
-			<p id="lettresInva"></p>
-		</section>
-		<section>
-			<H2>Vies: <span id="essais"></span></H2>
-		</section>
-		<section id="input">
-  			<h2>Proposez une lettre: </h2>
-  			<input id="propo" type="text">
-  			<input type="button" onclick="proposition()" value="Submit">
-		</section>
-		<section>
-			<H2>Informations:</H2>
-			<p id="comIA"></p>
-		</section>
-		<section>
-			<button id="recommencer" onclick="location.reload()" type="button">Nouvelle Partie</button>
-		</section>
+		<div id = "animation">
+			<img id="imgContexte" src="idle.gif" alt="animations du pendu">
+		</div>
+		<div id = "pendu">
+			<section>
+				<H2>Le Mot:</H2>
+				<p id="mot"></p>
+			</section>
+			<section>
+				<H2>Lettres Invalides:</H2>
+				<p id="lettresInva"></p>
+			</section>
+			<section>
+				<H2>Vies: <span id="essais"></span></H2>
+			</section>
+			<section id="input">
+	  			<h2>Proposez une lettre: </h2>
+	  			<input id="propo" type="text">
+	  			<input type="button" onclick="proposition()" value="Submit">
+			</section>
+			<section>
+				<H2>Informations:</H2>
+				<p id="comIA"></p>
+			</section>
+			<section>
+				<button id="recommencer" onclick="location.reload()" type="button">Nouvelle Partie</button>
+			</section>
+		</div>
 	</div>
 
 <script>
@@ -214,6 +232,7 @@ function afficheResultat(lettre) {
     document.getElementById('lettresInva').innerHTML += lettre+" -";
     document.getElementById("comIA").style.color = "red";
     document.getElementById("comIA").innerHTML = "Mauvaise proposition";
+    animationGif("mauvaiseReponse");
   }
   document.getElementById('essais').innerHTML = chanceNombre;
   resultat = 0;
@@ -227,6 +246,7 @@ function victoireDefaite()
 		document.getElementById("comIA").style.color = "red";
 		document.getElementById("comIA").innerHTML = "DEFAITE";
 		document.getElementById("recommencer").style.display = "block";
+		animationGif("defaite");
 	}
 	if (victoire == motSecret.length)
 	{
@@ -234,6 +254,24 @@ function victoireDefaite()
 		document.getElementById("comIA").innerHTML = "VICTOIRE";
 		document.getElementById("recommencer").style.display = "block";
 		chanceNombre = 0;
+		animationGif("victoire");
+	}
+}
+/* Animation */
+function animationGif(contexte)
+{
+	if (contexte == "mauvaiseReponse" && chanceNombre > 0)
+	{
+		document.getElementById("imgContexte").src="mauvaiseReponse.gif";
+	    setTimeout(function(){ if (chanceNombre > 0) {document.getElementById("imgContexte").src="idle.gif"; }}, 1300);
+	}
+	if (contexte == "defaite")
+	{
+		document.getElementById("imgContexte").src="defaite.gif";
+	}
+	if (contexte == "victoire")
+	{
+		document.getElementById("imgContexte").src="victoire.gif";
 	}
 }
 </script>
