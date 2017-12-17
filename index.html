@@ -22,8 +22,9 @@
 	}
 	#main
 	{
-		min-width: 400px;
+		max-width: 640px;
 		display: flex;
+		flex-direction: column;
 	}
 	section
 	{
@@ -48,15 +49,18 @@
 	}
 	#animation
 	{
+		margin-bottom: 1em;
+		border: 2px solid white;
+		border-radius: 15px;
 		position: relative;
 		align-self: center;
-		margin-right: 1em;
 		width: 128px;
 		height: 176px;
-		background-color: red;
+		background-color: black;
 	}
 	#animation > img
 	{
+		border-radius: 15px;
 		position: absolute;
 	}
 	#input
