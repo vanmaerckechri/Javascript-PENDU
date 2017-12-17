@@ -47,21 +47,23 @@
 		height: 50px;
 		width: 100%;
 	}
-	#animation
+	#vies
 	{
-		margin-bottom: 1em;
+		display: flex;
+		justify-content: space-between;
+	}
+	#vies > h2
+	{
+		display: inline-block;
+		width: inherit;
+	}
+	img
+	{
+		margin: 1em 0;
 		border: 2px solid white;
 		border-radius: 15px;
-		position: relative;
-		align-self: center;
 		width: 128px;
 		height: 176px;
-		background-color: black;
-	}
-	#animation > img
-	{
-		border-radius: 15px;
-		position: absolute;
 	}
 	#input
 	{
@@ -86,19 +88,13 @@
 
 <body onKeyPress="if (event.keyCode == 13) proposition()">
 	<div id="main">
-		<div id = "animation">
-			<img id="imgContexte" src="idle.gif" alt="animations du pendu">
-		</div>
 		<div id = "pendu">
 			<section>
-				<H2>Le Mot:</H2>
-				<p id="mot"></p>
+				<H2>Informations:</H2>
+				<p id="comIA"></p>
 			</section>
-			<section>
-				<H2>Lettres Invalides:</H2>
-				<p id="lettresInva"></p>
-			</section>
-			<section>
+			<section id="vies">
+				<img id="imgContexte" src="idle.gif" alt="animations du pendu">
 				<H2>Vies: <span id="essais"></span></H2>
 			</section>
 			<section id="input">
@@ -107,8 +103,12 @@
 	  			<input type="button" onclick="proposition()" value="Submit">
 			</section>
 			<section>
-				<H2>Informations:</H2>
-				<p id="comIA"></p>
+				<H2>Le Mot:</H2>
+				<p id="mot"></p>
+			</section>
+			<section>
+				<H2>Lettres Invalides:</H2>
+				<p id="lettresInva">- </p>
 			</section>
 			<section>
 				<button id="recommencer" onclick="location.reload()" type="button">Nouvelle Partie</button>
@@ -123,7 +123,7 @@ var lettreAlpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', '
 var motSecret;
 var lettreProposition;
 var lettresInvalides = [];
-var chanceNombre = 9;
+var chanceNombre;
 var resultat = 0;
 var victoire = 0;
 var aideNbrLettre;
@@ -151,9 +151,35 @@ while (aideNbrLettre > 0)
 	var lettreProposition = motSecret[randomNum];
 	verifLettre();
 	aideNbrLettre--;
-	document.getElementById("comIA").innerHTML = "";
+	document.getElementById("comIA").style.color = "pink";
+	document.getElementById("comIA").innerHTML = "Bienvenue";
 }
-
+/* Calcul du nombre de vies en fonction du nombre de lettres différentes à trouver */
+calculNbrVies();
+function calculNbrVies()
+{
+	var motCalculVies = [];
+	for (i = 0; i < motSecret.length; i++) /* on supprime les lettres déjà affichées en aide et on place les lettres resetantes dans la var motCalculVies */
+	{
+		if (motSecret[i] != motProposition[i])
+		{
+			motCalculVies.push(motSecret[i]);
+		}
+	}
+	var lettreDouble = 0;
+	for (i = 0; i < (motCalculVies.length-1); i++) /* On compare chaque lettre pour voir si il en existe qui se répètent (-1 on exclu la dernière) */
+	{
+		for (j = i + 1; j < motCalculVies.length; j++)
+		{
+			if (motCalculVies[i] == motCalculVies[j])
+			{
+				lettreDouble ++;
+			}
+		}
+	}
+	chanceNombre = (motCalculVies.length - lettreDouble);
+	document.getElementById('essais').innerHTML = chanceNombre;
+}
 /* ------------------------------"BOUCLE" PRINCIPALE------------------------------ */
 /* Stockage de la lettre proposée par le joueur */
 function proposition()
@@ -233,7 +259,7 @@ function afficheResultat(lettre) {
   {
     chanceNombre--;
     lettresInvalides.push(lettre);
-    document.getElementById('lettresInva').innerHTML += lettre+" -";
+    document.getElementById('lettresInva').innerHTML += lettre+" - ";
     document.getElementById("comIA").style.color = "red";
     document.getElementById("comIA").innerHTML = "Mauvaise proposition";
     animationGif("mauvaiseReponse");
@@ -261,7 +287,7 @@ function victoireDefaite()
 		animationGif("victoire");
 	}
 }
-/* Animation */
+/* Animations */
 function animationGif(contexte)
 {
 	if (contexte == "mauvaiseReponse" && chanceNombre > 0)
