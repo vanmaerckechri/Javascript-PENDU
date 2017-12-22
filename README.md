@@ -8,4 +8,4 @@
 
 ## Contexte
 
-Réalisé durant la formation [Becode](http://www.becode.org/). Découverte du Javascript (inputs, outputs, tableaux, fonctions, boucles, etc.).
+Réalisé durant la formation [Becode](http://www.becode.org/). Découverte du Javascript (variables, entrées, sorties, tableaux, fonctions, boucles, etc.).
