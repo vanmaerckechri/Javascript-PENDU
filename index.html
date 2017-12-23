@@ -160,6 +160,7 @@ function getRSS(){ /* Recupère liens dans fichier .txt*/
 	document.getElementById("comIA").innerHTML = "Chargement";
     var rss = getXMLHttpRequest(); /* Instance XMLHttpRequest*/
     rss.open('GET', 'dictionnaire.txt', false);
+    rss.overrideMimeType("text/plain");
     rss.send(null);
     var ligne = rss.responseText.split(/\n/g); /* Stock tout le fichier dans la variable (tableau)*/
     linkRss= ligne[0]; /* première ligne stocké dans la variable*/
@@ -355,8 +356,7 @@ function animationGif(contexte)
 	}
 }
 </script>
-<script src="upup.min.js"></script>
-<script>
+<script src="upup.min.js">
     UpUp.start({
         'content-url': 'index.html',
         'assets': ['./idle.gif', './mauvaiseReponse.gif', './defaite.gif', './victoire.gif', './dictionnaire.txt']
