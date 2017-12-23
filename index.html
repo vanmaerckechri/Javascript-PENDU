@@ -141,6 +141,8 @@ function getXMLHttpRequest() { /* Instance XMLHTttpRequest */
     return xmlhttp;
 }
 function getRSS(){ /* Recupère liens dans fichier .txt*/
+	document.getElementById("comIA").style.color = "#FF8C00";
+	document.getElementById("comIA").innerHTML = "Chargement";
     var rss = getXMLHttpRequest(); /* Instance XMLHttpRequest*/
     rss.open('GET', 'dictionnaire.txt', false);
     rss.send(null);
@@ -162,6 +164,7 @@ var aideNbrLettre;
 var randomNum = Math.floor(Math.random()*dictionnaire.length);
 var motSecret = dictionnaire[randomNum];
 motSecret = motSecret.toUpperCase(); /* Transformer lettre minuscule en majuscule */
+motSecret = motSecret.substr(0, motSecret.length-1); /* correction lettre fantôme |espace| issue du passage dico.txt vers tableau */
 /* Initialisation du mot, remplacement des lettres par des "-" */
 var motProposition = new Array(motSecret.length);
 for (i = 0; motProposition.length > i; i++)
