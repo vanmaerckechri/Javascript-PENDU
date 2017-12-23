@@ -118,7 +118,38 @@
 
 <script>
 /* ----------------------------------------INIT---------------------------------------- */
-var dictionnaire = ['BONJOUR', 'PARTOUT', 'COMMENT', 'MANGER', 'PARTIR', 'FATIGUE', 'INFORMATIQUE', 'TESTER', 'CHAPEAU', 'RENFORCER', 'CORDE', 'CHAUSSURES'];
+/* On va chercher les mots dans le dictionnaire.txt */
+function getXMLHttpRequest() { /* Instance XMLHTttpRequest */
+    var xmlhttp = null;
+    if (window.XMLHttpRequest || window.ActiveXObject) {
+        if (window.ActiveXObject) {
+            try {
+                xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+            } 
+            catch(e) {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+        }
+        else {
+            xmlhttp = new XMLHttpRequest(); 
+        }
+    } 
+    else {
+        alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest.");
+        return null;
+    }
+    return xmlhttp;
+}
+function getRSS(){ /* Recupère liens dans fichier .txt*/
+    var rss = getXMLHttpRequest(); /* Instance XMLHttpRequest*/
+    rss.open('GET', 'dictionnaire.txt', false);
+    rss.send(null);
+    var ligne = rss.responseText.split(/\n/g); /* Stock tout le fichier dans la variable (tableau)*/
+    linkRss= ligne[0]; /* première ligne stocké dans la variable*/
+    return ligne;
+}
+var dictionnaire = getRSS();
+/* déclaration variables */
 var lettreAlpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var motSecret;
 var lettreProposition;
@@ -130,6 +161,7 @@ var aideNbrLettre;
 /* Choisir un mot au hasard */
 var randomNum = Math.floor(Math.random()*dictionnaire.length);
 var motSecret = dictionnaire[randomNum];
+motSecret = motSecret.toUpperCase(); /* Transformer lettre minuscule en majuscule */
 /* Initialisation du mot, remplacement des lettres par des "-" */
 var motProposition = new Array(motSecret.length);
 for (i = 0; motProposition.length > i; i++)
