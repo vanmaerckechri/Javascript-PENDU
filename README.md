@@ -1,4 +1,4 @@
-# Javascript-PENDU (en Dev.)
+# Javascript-PENDU (v1.0)
 
 ## Les Consignes
 
@@ -8,4 +8,4 @@
 
 ## Contexte
 
-Réalisé durant la formation [Becode](http://www.becode.org/). Découverte du Javascript (variables, entrées, sorties, tableaux, fonctions, boucles, etc.).
+Réalisé durant la formation [Becode](http://www.becode.org/). Javascript, exploitation des concepts de base de la programmation (variables, entrées, sorties, tableaux, fonctions, boucles, etc.).
