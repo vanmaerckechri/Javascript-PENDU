@@ -8,4 +8,4 @@
 
 ## Contexte
 
-Réalisé durant la formation [Becode](http://www.becode.org/). Javascript, exploitation des concepts de base de la programmation (variables, entrées, sorties, tableaux, fonctions, boucles, etc.).
+Réalisé durant la formation [Becode](http://www.becode.org/). Utilisation de Javascript, exploitation des concepts de base de la programmation (variables, entrées, sorties, tableaux, fonctions, boucles, etc.).
