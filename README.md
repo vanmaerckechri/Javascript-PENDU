@@ -1,4 +1,4 @@
-# Javascript-PENDU (v1.0)
+# Javascript-PENDU (v1.1)
 
 ## Les Consignes
 
@@ -9,3 +9,12 @@
 ## Contexte
 
 Réalisé durant la formation [Becode](http://www.becode.org/). Utilisation de Javascript, exploitation des concepts de base de la programmation (variables, entrées, sorties, tableaux, fonctions, boucles, etc.).
+
+## Mises à Jour
+
+*2018-01-09
+ * Affichage du mot secret lors d'un defaite
+ 
+* 2018-12-24
+ * Ajout d'un dictionnaire.
+ * Application mobile.
