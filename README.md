@@ -15,6 +15,6 @@ Réalisé durant la formation [Becode](http://www.becode.org/). Utilisation de J
 * 2018-01-09
     * Affichage du mot secret lors d'un defaite
  
-* 2018-12-24
+* 2017-12-24
      * Ajout d'un dictionnaire.
      * Application mobile.
