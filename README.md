@@ -18,4 +18,3 @@ Réalisé durant la formation [Becode](http://www.becode.org/). Utilisation de J
  
 * 2017-12-24
      * Ajout d'un dictionnaire.
-     * Application mobile.
